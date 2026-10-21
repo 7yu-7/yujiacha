@@ -1,0 +1,34 @@
+# 依赖
+node_modules/
+# 环境变量与密钥（绝不提交）
+.env
+.env.local
+.env.*.local
+# 运行时数据（数据库、邮件取件箱、导出文件）
+data/
+server/data/
+*.db
+*.db-wal
+*.db-shm
+# 构建产物
+dist/
+unpackage/
+client/dist/
+# 日志与临时文件
+*.log
+logs/
+.DS_Store
+Thumbs.db
+# 编辑器
+.idea/
+.vscode/
+*.swp
+# 演示素材（视频/截图/中间产物，体积大，不入库；字幕脚本等源文件保留）
+*.mp4
+*.webm
+demo/downloads/
+demo/shots/
+demo/videos/frames/
+demo/videos/cuts/
+demo/videos/sheets/
+demo/videos/verify_frames/

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>鱼价查 · 管理后台</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🐟</text></svg>">
+<link rel="stylesheet" href="/shared/tokens.css">
+<style>
+  /* 管理后台：侧边栏 + 顶栏布局（PRD 7 信息架构） */
+  .admin-shell { display: grid; grid-template-columns: 226px 1fr; min-height: 100vh; }
+  .sidebar { background: var(--brand-deep); color: #fff; display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; }
+  .sidebar .brand { padding: 18px 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .sidebar .brand .nm { font-weight: 700; font-size: 16px; line-height: 1.2; }
+  .sidebar .brand .sub { font-size: 10.5px; color: rgba(255,255,255,.62); }
+  .nav { flex: 1; padding: 12px 10px; overflow-y: auto; }
+  .nav .grp { font-size: 10.5px; color: rgba(255,255,255,.45); padding: 12px 12px 6px; letter-spacing: .6px; }
+  .nav a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--r-sm); color: rgba(255,255,255,.82); font-size: 13.5px; margin-bottom: 2px; }
+  .nav a:hover { background: rgba(255,255,255,.1); color: #fff; text-decoration: none; }
+  .nav a.on { background: rgba(255,255,255,.18); color: #fff; font-weight: 600; }
+  .nav a .n { margin-left: auto; background: var(--up); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 9px; font-weight: 700; }
+  .sidebar .foot { padding: 14px 18px; border-top: 1px solid rgba(255,255,255,.12); font-size: 11px; color: rgba(255,255,255,.55); }
+  .main { background: var(--bg); min-width: 0; display: flex; flex-direction: column; }
+  .topbar { position: sticky; top: 0; z-index: 40; height: 56px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: var(--s-4); padding: 0 var(--s-6); }
+  .topbar h2 { margin: 0; font-size: 17px; }
+  .content { padding: var(--s-6); flex: 1; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: var(--s-3); }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: var(--s-4); position: relative; overflow: hidden; }
+  .kpi::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--brand); }
+  .kpi.warn::after { background: var(--warn); } .kpi.up::after { background: var(--up); } .kpi.down::after { background: var(--down); }
+  .kpi .k { font-size: var(--fs-xs); color: var(--text-2); }
+  .kpi .v { font-size: 25px; font-weight: 700; font-family: var(--font-num); margin-top: 5px; line-height: 1.15; }
+  .kpi .x { font-size: 11.5px; color: var(--text-3); margin-top: 3px; }
+  .toolbar { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: flex-end; margin-bottom: var(--s-4); }
+  .toolbar .field { margin-bottom: 0; min-width: 140px; }
+  .page-note { font-size: 12.5px; color: var(--text-2); background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--brand); border-radius: var(--r-sm); padding: 10px 14px; margin-bottom: var(--s-4); line-height: 1.75; }
+  .pager { display: flex; align-items: center; gap: var(--s-2); justify-content: flex-end; margin-top: var(--s-4); }
+  .bar-mini { height: 16px; background: var(--surface-2); border-radius: 4px; overflow: hidden; min-width: 80px; position: relative; }
+  .bar-mini > i { display: block; height: 100%; background: var(--brand-2); opacity: .32; }
+  .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #06262C 0%, #0A9396 100%); padding: var(--s-4); }
+  .login-card { background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); width: 100%; max-width: 400px; padding: var(--s-8) var(--s-6); }
+  .login-card h1 { margin: 0 0 5px; font-size: 22px; color: var(--brand-deep); }
+  .login-card .sub { font-size: 12.5px; color: var(--text-2); margin-bottom: var(--s-6); line-height: 1.7; }
+  .env-tag { display: inline-block; font-size: 10.5px; padding: 2px 7px; border-radius: 4px; background: var(--warn); color: #3A2600; font-weight: 700; margin-left: 6px; }
+  @media (max-width: 900px) { .admin-shell { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } .nav { display: flex; gap: 4px; overflow-x: auto; padding: 8px; } .nav .grp { display: none; } .nav a { white-space: nowrap; margin: 0; } }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="/shared/api.js"></script>
+<script src="/shared/ui.js"></script>
+<script src="/shared/data/china-provinces.js"></script>
+<script src="/admin/app.js"></script>
+</body>
+</html>

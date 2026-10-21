@@ -1,0 +1,145 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^yj-(.*)": "@/components/yj-$1/yj-$1.vue"
+    }
+  },
+  "pages": [
+    {
+      "path": "pages/market/index",
+      "style": {
+        "navigationBarTitleText": "行情",
+        "enablePullDownRefresh": true,
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/map/index",
+      "style": {
+        "navigationBarTitleText": "每日渔价地图",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/watch/index",
+      "style": {
+        "navigationBarTitleText": "我的关注",
+        "enablePullDownRefresh": true,
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/report/index",
+      "style": {
+        "navigationBarTitleText": "全国渔价日报表",
+        "enablePullDownRefresh": true,
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/me/index",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/species/detail",
+      "style": {
+        "navigationBarTitleText": "品种详情",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/search/index",
+      "style": {
+        "navigationBarTitleText": "搜索品种",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/register/index",
+      "style": {
+        "navigationBarTitleText": "注册",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/alerts/index",
+      "style": {
+        "navigationBarTitleText": "价格异动提醒",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/compare/index",
+      "style": {
+        "navigationBarTitleText": "历史对比",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/settings/index",
+      "style": {
+        "navigationBarTitleText": "账户设置",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/webview/index",
+      "style": {
+        "navigationBarTitleText": "来源页面",
+        "navigationBarBackgroundColor": "#005F73",
+        "navigationBarTextStyle": "white"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "鱼价查",
+    "navigationBarBackgroundColor": "#005F73",
+    "backgroundColor": "#F7FAFA"
+  },
+  "tabBar": {
+    "color": "#8595AC",
+    "selectedColor": "#0A9396",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "height": "54px",
+    "fontSize": "10px",
+    "iconWidth": "22px",
+    "spacing": "3px",
+    "list": [
+      { "pagePath": "pages/market/index", "text": "行情", "iconPath": "static/tab/market.png", "selectedIconPath": "static/tab/market-on.png" },
+      { "pagePath": "pages/map/index", "text": "地图", "iconPath": "static/tab/map.png", "selectedIconPath": "static/tab/map-on.png" },
+      { "pagePath": "pages/watch/index", "text": "关注", "iconPath": "static/tab/watch.png", "selectedIconPath": "static/tab/watch-on.png" },
+      { "pagePath": "pages/report/index", "text": "日报", "iconPath": "static/tab/report.png", "selectedIconPath": "static/tab/report-on.png" },
+      { "pagePath": "pages/me/index", "text": "我的", "iconPath": "static/tab/me.png", "selectedIconPath": "static/tab/me-on.png" }
+    ]
+  },
+  "condition": {
+    "current": 0,
+    "list": [{ "name": "行情首页", "path": "pages/market/index" }]
+  }
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>鱼价查 · 微信小程序预览</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🐟</text></svg>">
+<link rel="stylesheet" href="/shared/tokens.css">
+<style>
+  /* 小程序预览：手机外壳 + 微信风格导航 + 底部 TabBar */
+  body { background: #E9EFF0; display: flex; align-items: flex-start; justify-content: center; padding: 24px 12px; min-height: 100vh; }
+  :root[data-theme="dark"] body { background: #071519; }
+
+  .stage { display: flex; gap: 26px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+  .side { max-width: 320px; min-width: 260px; }
+  .side h1 { font-size: 19px; margin: 0 0 6px; color: var(--brand-deep); }
+  :root[data-theme="dark"] .side h1 { color: var(--brand-2); }
+  .side p { font-size: 12.5px; color: var(--text-2); line-height: 1.8; margin: 0 0 12px; }
+  .side .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 12px 14px; margin-bottom: 12px; }
+  .side .panel .t { font-size: 12.5px; font-weight: 700; color: var(--brand); margin-bottom: 6px; }
+  .side .panel ul { margin: 0; padding-left: 17px; font-size: 12px; color: var(--text-2); line-height: 1.95; }
+  .side .panel code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+
+  /* 手机外观 */
+  .phone { width: 375px; height: 748px; background: var(--surface); border-radius: 40px; border: 10px solid #16262B;
+           box-shadow: 0 22px 54px rgba(11,31,36,.32); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  :root[data-theme="dark"] .phone { border-color: #04161A; }
+  .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 148px; height: 25px;
+           background: #16262B; border-radius: 0 0 16px 16px; z-index: 30; }
+  :root[data-theme="dark"] .notch { background: #04161A; }
+  .statusbar { height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+               padding: 0 20px; font-size: 11.5px; color: #fff; background: var(--brand-deep); font-family: var(--font-num); }
+  .navbar { height: 42px; flex-shrink: 0; background: var(--brand-deep); color: #fff; display: flex; align-items: center;
+            justify-content: center; font-size: 15.5px; font-weight: 600; position: relative; }
+  .navbar .caps { position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+                   border: 1px solid rgba(255,255,255,.42); border-radius: 50%; width: 17px; height: 17px;
+                   display: flex; align-items: center; justify-content: center; font-size: 10px; }
+  .navbar .back { position: absolute; left: 14px; font-size: 19px; line-height: 1; cursor: pointer; }
+  .body { flex: 1; overflow-y: auto; overflow-x: hidden; background: var(--bg); position: relative; }
+  .body::-webkit-scrollbar { width: 0; }
+  .tabbar { height: 56px; flex-shrink: 0; background: var(--surface); border-top: 1px solid var(--border);
+            display: flex; align-items: stretch; }
+  .tabbar .tb { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+                gap: 2px; font-size: 10.5px; color: #8595AC; position: relative; cursor: pointer; }
+  .tabbar .tb.on { color: var(--brand-2); font-weight: 600; }
+  .tabbar .tb .bd { position: absolute; top: 5px; right: calc(50% - 20px); min-width: 15px; height: 15px; padding: 0 4px;
+                     border-radius: 8px; background: var(--up); color: #fff; font-size: 9.5px; display: flex;
+                     align-items: center; justify-content: center; font-weight: 700; }
+  .homebar { height: 5px; width: 112px; background: var(--text-3); border-radius: 3px; margin: 0 auto 5px; opacity: .45; flex-shrink: 0; }
+
+  /* 小程序页面通用 */
+  .mp { padding: 12px; }
+  .mp-hero { background: linear-gradient(135deg, #005F73 0%, #0A9396 100%); color: #fff; padding: 14px 14px 16px; }
+  .mp-hero .row1 { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .mp-hero .d { font-size: 11px; color: rgba(255,255,255,.78); }
+  .mp-hero .v { font-size: 27px; font-weight: 700; font-family: var(--font-num); line-height: 1.2; }
+  .mp-hero .k { font-size: 10.5px; color: rgba(255,255,255,.72); }
+  .mp-search { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,.16);
+               border: 1px solid rgba(255,255,255,.25); border-radius: 18px; padding: 7px 13px; font-size: 12.5px;
+               color: rgba(255,255,255,.85); margin-top: 12px; cursor: pointer; }
+  .mp-search input { flex: 1; background: transparent; border: none; outline: none; color: #fff; font-size: 12.5px; }
+  .mp-search input::placeholder { color: rgba(255,255,255,.6); }
+
+  .sec { padding: 12px 12px 0; }
+  .sec-t { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .sec-t h4 { margin: 0; font-size: 13.5px; font-weight: 600; }
+  .sec-t .more { font-size: 11.5px; color: var(--brand); }
+  .chips-s { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 3px; }
+  .chips-s::-webkit-scrollbar { height: 0; }
+  .chip-s { flex-shrink: 0; padding: 4px 11px; border-radius: 13px; border: 1px solid var(--border);
+            background: var(--surface); font-size: 11.5px; color: var(--text-2); cursor: pointer; white-space: nowrap; }
+  .chip-s.on { background: var(--brand); border-color: var(--brand); color: #fff; font-weight: 600; }
+
+  .mp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 11px 12px; }
+  .sp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .sp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 11px; position: relative; }
+  .sp-card .cat { position: absolute; top: 8px; right: 8px; font-size: 9.5px; padding: 1px 6px; border-radius: 4px;
+                  background: var(--surface-2); color: var(--text-2); font-weight: 600; }
+  .sp-card .nm { font-size: 13.5px; font-weight: 600; padding-right: 46px; }
+  .sp-card .spc { font-size: 10px; color: var(--text-3); margin-top: 1px; }
+  .sp-card .pr { display: flex; align-items: baseline; gap: 4px; margin-top: 7px; }
+  .sp-card .pr b { font-size: 19px; font-family: var(--font-num); font-weight: 700; }
+  .sp-card .pr span { font-size: 9.5px; color: var(--text-2); }
+  .sp-card .sw { position: absolute; right: 9px; bottom: 9px; font-size: 17px; line-height: 1; cursor: pointer;
+                 color: var(--text-3); background: none; border: none; padding: 0; }
+  .sp-card .sw.on { color: var(--warn); }
+
+  .rank-row { display: flex; align-items: center; gap: 9px; padding: 7px 9px; border-radius: 8px; background: var(--surface-2);
+              font-size: 12px; cursor: pointer; }
+  .rank-row.on { background: var(--brand-soft); }
+  .rank-row .p { font-family: var(--font-num); font-weight: 700; font-size: 13px; min-width: 54px; text-align: right; }
+  .rk { width: 19px; height: 19px; border-radius: 5px; background: var(--surface-2); color: var(--text-2);
+        font-size: 10.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--font-num); }
+  .rk.t1 { background: var(--up); color: #fff; } .rk.t2 { background: #E88B2F; color: #fff; } .rk.t3 { background: #C9A227; color: #fff; }
+
+  table.mp-t { width: 100%; border-collapse: collapse; font-size: 11.5px; background: var(--surface); }
+  table.mp-t th { background: var(--brand-deep); color: #fff; padding: 8px 6px; text-align: left; font-size: 10.5px; font-weight: 600; }
+  table.mp-t td { padding: 8px 6px; border-bottom: 1px solid var(--border); }
+  table.mp-t .num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-num); }
+  table.mp-t tr:last-child td { border-bottom: none; }
+
+  .mp-list-row { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+                 padding: 12px 13px; background: var(--surface); border-bottom: 1px solid var(--border); font-size: 13px; cursor: pointer; }
+  .mp-list-row:last-child { border-bottom: none; }
+  .mp-list-row .l { display: flex; align-items: center; gap: 9px; }
+  .mp-list-row .r { color: var(--text-3); font-size: 12px; }
+  .mp-group { background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .mp-group-t { font-size: 11.5px; color: var(--text-2); padding: 0 4px 6px; }
+
+  .empty-s { text-align: center; padding: 34px 18px; color: var(--text-2); }
+  .empty-s svg { margin: 0 auto 12px; }
+  .empty-s h5 { margin: 0 0 5px; font-size: 14px; }
+  .empty-s p { margin: 0 0 13px; font-size: 11.5px; line-height: 1.75; }
+
+  .btn-s { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 8px 15px;
+           border-radius: 8px; border: 1px solid var(--border-strong); background: var(--surface);
+           color: var(--text-1); font-size: 12.5px; font-weight: 500; cursor: pointer; }
+  .btn-s.pri { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .btn-s.pri:hover { background: var(--brand-deep); }
+  .btn-s.blk { width: 100%; }
+  .btn-s.sm { padding: 5px 11px; font-size: 11.5px; }
+
+  .fld-s { margin-bottom: 11px; }
+  .fld-s label { display: block; font-size: 11.5px; color: var(--text-2); margin-bottom: 5px; font-weight: 500; }
+  .fld-s input, .fld-s select, .fld-s textarea { width: 100%; padding: 9px 11px; border: 1px solid var(--border-strong);
+      border-radius: 8px; background: var(--surface); color: var(--text-1); font-size: 13px; font-family: inherit; box-sizing: border-box; }
+  .fld-s input:focus, .fld-s select:focus { outline: none; border-color: var(--brand); }
+
+  .mp-notice { display: flex; gap: 7px; padding: 9px 12px; border-radius: 8px; font-size: 11.5px; line-height: 1.7;
+               background: var(--brand-softer); border: 1px solid var(--border); color: var(--text-2); }
+  .mp-notice.warn { background: #FEF7E7; border-color: #F5DFAE; color: #8A5D00; }
+  :root[data-theme="dark"] .mp-notice.warn { background: #3A2E12; border-color: #6B551F; color: #F0C775; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="side">
+    <h1>微信小程序 · 实时预览</h1>
+    <p>这是 UniApp 客户端在浏览器中的形态预览（H5 编译产物）。同一套源码可用 HBuilderX 编译为<strong>微信小程序</strong>与 <strong>iOS / Android 原生 App</strong>。</p>
+
+    <div class="panel">
+      <div class="t">5 个底部 Tab（PRD 7 信息架构）</div>
+      <ul>
+        <li><b>行情</b>：全品种三级浏览 + 搜索 + 涨跌榜</li>
+        <li><b>地图</b>：省界比色 + 近一周趋势</li>
+        <li><b>关注</b>：个性化订阅 + 异动提醒</li>
+        <li><b>日报</b>：全国渔价日报表（T+0）</li>
+        <li><b>我的</b>：账户 / 主题 / 导出 / 注销</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <div class="t">交互提示</div>
+      <ul>
+        <li>点击底部 Tab 切换页面</li>
+        <li>点击品种卡片查看详情</li>
+        <li>点击星标一键关注/取消关注</li>
+        <li>未登录时可体验访客模式；登录后关注数据云端同步</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <div class="t">编译为真机小程序 / App</div>
+      <ul style="line-height:1.9">
+        <li>用 HBuilderX 打开 <code>yujiacha/client</code></li>
+        <li>运行 → 运行到小程序模拟器 → 微信开发者工具</li>
+        <li>或运行到手机模拟器 / 真机（App）</li>
+        <li>后端地址在 <code>src/utils/config.js</code> 中配置</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <div class="t">演示账号</div>
+      <ul>
+        <li>普通用户：<code>farmer@yujiacha.local</code> / <code>Demo@2026</code></li>
+        <li>教研用户：<code>teacher@shou.edu.cn</code> / <code>Demo@2026</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="statusbar"><span id="clock">9:41</span><span>●●● ⚡ ▮</span></div>
+    <div class="navbar" id="navbar">行情</div>
+    <div class="body" id="screen"></div>
+    <div class="tabbar" id="tabbar"></div>
+    <div class="homebar"></div>
+  </div>
+</div>
+
+<script src="/shared/api.js"></script>
+<script src="/shared/ui.js"></script>
+<script src="/shared/data/china-provinces.js"></script>
+<script src="/mini/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "yujiacha-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "渔价查 · 智慧渔业全国水产品价格日报系统 —— 统一后端 API（服务小程序/App/管理后台/Web-H5 四端）",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "init:db": "node scripts/init-db.js",
+    "seed": "node scripts/seed.js",
+    "seed:full": "node scripts/seed.js --full",
+    "reset": "node scripts/init-db.js --drop && node scripts/seed.js"
+  },
+  "engines": { "node": ">=22" },
+  "dependencies": {
+    "mysql2": "^3.11.0"
+  }
+}

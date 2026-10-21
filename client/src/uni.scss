@@ -1,0 +1,187 @@
+/* ============================================================================
+   鱼价查 · UniApp 全局样式（Design Token）
+   与 /shared/tokens.css 保持一致；小程序端不支持 CSS 变量穿透根节点，
+   故同时提供 scss 变量与 class 供各页面直接使用。
+   涨跌采用国内「红涨绿跌」约定，且始终配合 ▲/▼ 箭头与文字。
+   ============================================================================ */
+
+/* #ifndef MP-WEIXIN */
+page {
+  --brand: #0E7C86;
+  --brand-2: #0A9396;
+  --brand-deep: #005F73;
+  --brand-soft: #E6F4F5;
+  --up: #E5484D;
+  --up-soft: #FDECEC;
+  --down: #30A46C;
+  --down-soft: #E7F6EE;
+  --flat: #8595AC;
+  --flat-soft: #EEF1F5;
+  --warn: #F5A623;
+  --tier-low: #2F7ED8;
+  --tier-mid: #F5A623;
+  --tier-high: #E0503C;
+  --text-1: #1F2933;
+  --text-2: #6B7280;
+  --text-3: #9AA5B1;
+  --bg: #F7FAFA;
+  --surface: #FFFFFF;
+  --surface-2: #F2F7F8;
+  --border: #E2EAEB;
+  --border-strong: #CFDCDE;
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  font-size: 28rpx;
+}
+/* #endif */
+
+/* 小程序端：使用固定色值（不支持变量时兜底） */
+/* #ifdef MP-WEIXIN */
+page { background: #F7FAFA; color: #1F2933; font-size: 28rpx;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+/* #endif */
+
+/* 深色主题 */
+.theme-dark, :root[data-theme="dark"] {
+  --brand: #0FA3AD; --brand-2: #14B8BD; --brand-deep: #06262C; --brand-soft: #10353B;
+  --up: #FF6B70; --up-soft: #3A1B1D; --down: #3FC77F; --down-soft: #12301F;
+  --flat: #8595AC; --flat-soft: #22303A;
+  --text-1: #E8F1F2; --text-2: #A3B4BD; --text-3: #74868F;
+  --bg: #0B1F24; --surface: #102A30; --surface-2: #14343B;
+  --border: #1E4650; --border-strong: #2A5862;
+}
+/* 学术白底主题 */
+.theme-academic, :root[data-theme="academic"] {
+  --brand: #0A9396; --brand-2: #0E7C86; --brand-deep: #0A6E72; --brand-soft: #E9F5F6;
+  --up: #C0392B; --down: #1E8E5A; --flat: #7B8794; --warn: #B8860B;
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface-2: #F5F8F8;
+  --border: #DEE5E6; --border-strong: #C6D1D2;
+}
+
+/* ── 通用布局 ─────────────────────────────────────────────────────── */
+.row { display: flex; align-items: center; }
+.row-between { display: flex; align-items: center; justify-content: space-between; }
+.col { display: flex; flex-direction: column; }
+.grow { flex: 1; }
+.wrap { flex-wrap: wrap; }
+.center { text-align: center; }
+.right { text-align: right; }
+.mono { font-variant-numeric: tabular-nums; }
+
+.card {
+  background: var(--surface);
+  border: 1rpx solid var(--border);
+  border-radius: 24rpx;
+  padding: 26rpx 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(16, 42, 48, .05);
+}
+.card-tight { padding: 20rpx; }
+
+/* ── 价格 ─────────────────────────────────────────────────────────── */
+.price { font-size: 60rpx; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.price-sm { font-size: 40rpx; font-weight: 700; font-variant-numeric: tabular-nums; }
+.price-unit { font-size: 22rpx; color: var(--text-2); margin-left: 6rpx; }
+
+/* ── 涨跌（始终带箭头 + 文字）────────────────────────────────────── */
+.delta {
+  display: inline-block; font-size: 22rpx; font-weight: 600;
+  padding: 2rpx 12rpx; border-radius: 8rpx; font-variant-numeric: tabular-nums;
+}
+.delta.up { color: var(--up); background: var(--up-soft); }
+.delta.down { color: var(--down); background: var(--down-soft); }
+.delta.flat { color: var(--flat); background: var(--flat-soft); }
+.t-up { color: var(--up); }
+.t-down { color: var(--down); }
+.t-flat { color: var(--flat); }
+
+/* ── 价格档位徽章 ─────────────────────────────────────────────────── */
+.tier { display: inline-block; font-size: 20rpx; font-weight: 600; color: #fff;
+  padding: 3rpx 14rpx; border-radius: 20rpx; }
+.tier.low { background: #2F7ED8; }
+.tier.mid { background: #F5A623; }
+.tier.high { background: #E0503C; }
+.tier.na { background: #8595AC; }
+.tier.outline { background: transparent; border: 1rpx solid currentColor; }
+.tier.outline.low { color: #2F7ED8; }
+.tier.outline.mid { color: #F5A623; }
+.tier.outline.high { color: #E0503C; }
+.tier.outline.na { color: #8595AC; }
+
+/* ── 徽章 ─────────────────────────────────────────────────────────── */
+.badge { display: inline-block; font-size: 20rpx; font-weight: 600; padding: 3rpx 14rpx;
+  border-radius: 8rpx; background: var(--brand-soft); color: var(--brand); }
+.badge.gray { background: var(--surface-2); color: var(--text-2); }
+.badge.up { background: var(--up-soft); color: var(--up); }
+.badge.down { background: var(--down-soft); color: var(--down); }
+.badge.warn { background: #FEF3DC; color: #B26A00; }
+
+/* ── 按钮 ─────────────────────────────────────────────────────────── */
+.btn { display: flex; align-items: center; justify-content: center; gap: 8rpx;
+  padding: 18rpx 32rpx; border-radius: 14rpx; font-size: 26rpx; font-weight: 500;
+  background: var(--surface); color: var(--text-1); border: 1rpx solid var(--border-strong); }
+.btn::after { border: none; }
+.btn.pri { background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn.blk { width: 100%; }
+.btn.sm { padding: 12rpx 22rpx; font-size: 23rpx; }
+
+/* ── 表单 ─────────────────────────────────────────────────────────── */
+.input { width: 100%; padding: 20rpx 24rpx; border: 1rpx solid var(--border-strong);
+  border-radius: 14rpx; background: var(--surface); color: var(--text-1); font-size: 27rpx; }
+.field { margin-bottom: 22rpx; }
+.field-label { font-size: 24rpx; color: var(--text-2); margin-bottom: 10rpx; font-weight: 500; }
+
+/* ── 芯片 ─────────────────────────────────────────────────────────── */
+.chips { display: flex; gap: 12rpx; flex-wrap: wrap; }
+.chips-scroll { display: flex; gap: 12rpx; white-space: nowrap; overflow-x: auto; padding-bottom: 6rpx; }
+.chip { display: inline-block; flex-shrink: 0; padding: 10rpx 22rpx; border-radius: 28rpx;
+  border: 1rpx solid var(--border); background: var(--surface);
+  font-size: 23rpx; color: var(--text-2); }
+.chip.on { background: var(--brand); border-color: var(--brand); color: #fff; font-weight: 600; }
+
+/* ── 表格 ─────────────────────────────────────────────────────────── */
+.tbl { width: 100%; border-radius: 20rpx; overflow: hidden; border: 1rpx solid var(--border); }
+.tbl-h { display: flex; background: var(--brand-deep); color: #fff; font-size: 22rpx; font-weight: 600; }
+.tbl-r { display: flex; font-size: 25rpx; border-bottom: 1rpx solid var(--border); background: var(--surface); }
+.tbl-r:last-child { border-bottom: none; }
+.tbl-r.alt { background: var(--surface-2); }
+.tbl-c { padding: 18rpx 14rpx; flex: 1; min-width: 0; }
+.tbl-c.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ── 概览卡 ───────────────────────────────────────────────────────── */
+.stat { background: var(--surface); border: 1rpx solid var(--border); border-radius: 18rpx;
+  padding: 20rpx 22rpx; position: relative; overflow: hidden; }
+.stat::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5rpx; background: var(--brand); }
+.stat.up::after { background: var(--up); }
+.stat.down::after { background: var(--down); }
+.stat.warn::after { background: var(--warn); }
+.stat .k { font-size: 22rpx; color: var(--text-2); }
+.stat .v { font-size: 38rpx; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 6rpx; }
+.stat .u { font-size: 20rpx; color: var(--text-2); font-weight: 400; }
+
+/* ── 提示条 ───────────────────────────────────────────────────────── */
+.notice { display: flex; gap: 12rpx; padding: 18rpx 22rpx; border-radius: 14rpx;
+  font-size: 23rpx; line-height: 1.7; background: var(--brand-soft);
+  border: 1rpx solid var(--border); color: var(--text-2); }
+.notice.warn { background: #FEF7E7; border-color: #F5DFAE; color: #8A5D00; }
+.notice.err { background: var(--up-soft); border-color: #F5C2C2; color: #9B2C2C; }
+
+/* ── 空状态 ───────────────────────────────────────────────────────── */
+.empty { text-align: center; padding: 70rpx 40rpx; color: var(--text-2); }
+.empty .t { font-size: 30rpx; font-weight: 600; color: var(--text-1); margin: 18rpx 0 10rpx; }
+.empty .d { font-size: 24rpx; line-height: 1.8; margin-bottom: 26rpx; }
+
+/* ── 骨架 ─────────────────────────────────────────────────────────── */
+.sk { background: linear-gradient(90deg, var(--surface-2) 25%, var(--border) 37%, var(--surface-2) 63%);
+  background-size: 400% 100%; animation: sk 1.4s ease-in-out infinite; border-radius: 16rpx; }
+@keyframes sk { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+
+/* ── 文本工具 ─────────────────────────────────────────────────────── */
+.muted { color: var(--text-2); }
+.faint { color: var(--text-3); }
+.tiny { font-size: 21rpx; }
+.sm { font-size: 24rpx; }
+.bold { font-weight: 600; }
+.bolder { font-weight: 700; }
+.divider { height: 1rpx; background: var(--border); margin: 22rpx 0; }

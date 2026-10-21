@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>鱼价查 · 智慧渔业全国水产品价格日报系统</title>
+<meta name="description" content="鱼价查 —— 全国水产品价格日报，覆盖 34 个省级行政区、130 家批发市场。每日渔价、地图选省、我的关注、全国日报表。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🐟</text></svg>">
+<link rel="stylesheet" href="/shared/tokens.css">
+<style>
+  /* 页面级补充样式 */
+  .hero { background: linear-gradient(135deg, var(--brand-deep) 0%, #0A9396 100%); color: #fff; padding: 30px 0 26px; }
+  .hero .container { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-6); flex-wrap: wrap; }
+  .hero h1 { margin: 0 0 6px; font-size: 25px; letter-spacing: -.4px; }
+  .hero p { margin: 0; font-size: 13.5px; color: rgba(255,255,255,.82); line-height: 1.75; }
+  .hero .quick { display: flex; gap: 26px; flex-wrap: wrap; }
+  .hero .quick .q { text-align: right; }
+  .hero .quick .q .v { font-size: 24px; font-weight: 700; font-family: var(--font-num); line-height: 1.2; }
+  .hero .quick .q .k { font-size: 11.5px; color: rgba(255,255,255,.72); }
+  .notice-bar { background: #FEF7E7; border-bottom: 1px solid #F5DFAE; color: #8A5D00; font-size: 13px; padding: 8px 0; }
+  :root[data-theme="dark"] .notice-bar { background: #2A2210; border-color: #5A4718; color: #E8C87A; }
+  .filter-bar { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: flex-end; }
+  .filter-bar .field { margin-bottom: 0; min-width: 132px; }
+  .search-box { position: relative; }
+  .search-box .input { padding-left: 36px; }
+  .search-box .ico { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-3); pointer-events: none; }
+  .trend-strip { display: flex; gap: var(--s-3); overflow-x: auto; padding-bottom: 4px; }
+  .trend-strip .tcard { min-width: 200px; flex-shrink: 0; }
+  .rank-list { display: flex; flex-direction: column; gap: 6px; }
+  .rank-item { display: flex; align-items: center; gap: 11px; padding: 8px 11px; border-radius: var(--r-sm); background: var(--surface-2); }
+  .rank-item:hover { background: var(--brand-softer); }
+  .rank-item .p { font-family: var(--font-num); font-weight: 700; font-size: 15px; min-width: 62px; text-align: right; }
+  .prov-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-3); }
+  .mini-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-2); }
+  .mini-stat { background: var(--surface-2); border-radius: var(--r-sm); padding: 9px 11px; text-align: center; }
+  .mini-stat .k { font-size: 11px; color: var(--text-2); }
+  .mini-stat .v { font-size: 16px; font-weight: 700; font-family: var(--font-num); margin-top: 2px; }
+  .chip-map { cursor: pointer; }
+  .tbl-note { font-size: 12.5px; color: var(--text-2); line-height: 1.85; background: var(--surface-2); border-radius: var(--r-sm); padding: 12px 15px; margin-top: var(--s-4); }
+  .auth-split { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; max-width: 880px; margin: 0 auto; }
+  @media (max-width: 760px) { .auth-split { grid-template-columns: 1fr; gap: 22px; } }
+  .theme-swatch { display: flex; gap: 8px; }
+  .theme-swatch button { flex: 1; padding: 9px; border-radius: var(--r-sm); border: 1.5px solid var(--border); background: var(--surface); font-size: 12.5px; }
+  .theme-swatch button.on { border-color: var(--brand); color: var(--brand); font-weight: 600; background: var(--brand-soft); }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script src="/shared/api.js"></script>
+<script src="/shared/ui.js"></script>
+<script src="/shared/data/china-provinces.js"></script>
+<script src="/web/app.js"></script>
+</body>
+</html>
