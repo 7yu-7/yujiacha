@@ -10,7 +10,8 @@
     "init:db": "node scripts/init-db.js",
     "seed": "node scripts/seed.js",
     "seed:full": "node scripts/seed.js --full",
-    "reset": "node scripts/init-db.js --drop && node scripts/seed.js"
+    "reset": "node scripts/init-db.js --drop && node scripts/seed.js",
+    "deploy": "bash start-cloud.sh"
   },
   "engines": { "node": ">=22" },
   "dependencies": {
