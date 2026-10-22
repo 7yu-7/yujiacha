@@ -1,0 +1,39 @@
+<wxs src="../../utils/util.wxs" module="u" />
+
+<view wx:if="{{loading}}" class="empty">加载中…</view>
+<block wx:elif="{{d}}">
+  <view class="brand-bar">
+    <view class="title">{{d.species}}</view>
+    <view class="date">{{d.category}} · {{d.subCategory}} · {{d.spec}}</view>
+  </view>
+
+  <view class="card center">
+    <text class="muted small">当日均价（{{d.unit}}）</text>
+    <view><text class="price-big">¥{{u.fmtPrice(d.price.avg)}}</text></view>
+    <text class="{{u.clsPct(d.price.changePct)}}" style="font-size:30rpx;font-weight:600">{{u.fmtPct(d.price.changePct)}} 较昨日</text>
+    <view class="row center" style="justify-content:center;margin-top:12rpx">
+      <text class="tiny muted">最低 ¥{{u.fmtPrice(d.price.min)}} · 最高 ¥{{u.fmtPrice(d.price.max)}}</text>
+      <text class="tier" style="background:{{d.price.tier.color}};margin-left:14rpx">{{d.price.tier.label}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row between">
+      <text class="bold">近30日走势</text>
+      <text class="tiny muted">{{d.coverage.marketCount}}个市场 · {{d.coverage.provinceCount}}省</text>
+    </view>
+    <view class="hist" wx:for="{{d.history}}" wx:key="date">
+      <view class="row between tiny">
+        <text class="muted">{{u.fmtDate(item.date)}}</text>
+        <text>¥{{u.fmtPrice(item.avg)}}</text>
+      </view>
+      <view class="bar"><view class="bar-in" style="width:{{ ((item.avg - histMin) / ((histMax - histMin) || 1) * 100) }}%"></view></view>
+    </view>
+  </view>
+
+  <view class="card tiny muted">数据来源：{{d.source.name}}</view>
+
+  <view style="padding:10rpx 20rpx 50rpx">
+    <view class="btn {{watched ? 'ghost' : ''}}" bindtap="toggleWatch">{{watched ? '✓ 已关注' : '+ 加入关注'}}</view>
+  </view>
+</block>

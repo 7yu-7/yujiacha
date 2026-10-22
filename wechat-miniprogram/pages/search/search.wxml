@@ -1,0 +1,23 @@
+<wxs src="../../utils/util.wxs" module="u" />
+
+<view class="brand-bar">
+  <view class="title">搜索品种</view>
+</view>
+
+<view class="search-box">
+  <input class="search-input" placeholder="输入鱼/虾/蟹名称，如 大黄鱼" value="{{kw}}" bindinput="input" confirm-type="search" />
+</view>
+
+<view class="card">
+  <view wx:if="{{loading}}" class="empty">搜索中…</view>
+  <view wx:elif="{{results.length===0}}" class="empty">{{kw ? '无匹配结果' : '输入关键字开始搜索'}}</view>
+  <view wx:else>
+    <view class="li" wx:for="{{results}}" wx:key="species" bindtap="goSpecies" data-name="{{item.species}}">
+      <view>
+        <text class="name">{{item.species}}</text>
+        <text class="tag">{{item.category}}</text>
+      </view>
+      <text class="{{u.clsPct(item.changePct)}}" style="font-weight:600">{{u.fmtPct(item.changePct)}}</text>
+    </view>
+  </view>
+</view>

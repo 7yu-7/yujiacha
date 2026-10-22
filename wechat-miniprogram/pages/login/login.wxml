@@ -1,0 +1,27 @@
+<view class="brand-bar">
+  <view class="title">账号</view>
+</view>
+
+<view class="seg">
+  <view class="seg-item {{mode==='login'?'on':''}}" data-mode="login" bindtap="switchMode">登录</view>
+  <view class="seg-item {{mode==='register'?'on':''}}" data-mode="register" bindtap="switchMode">注册</view>
+</view>
+
+<view class="card">
+  <view wx:if="{{mode==='register'}}" class="field">
+    <text class="label">昵称</text>
+    <input class="input" placeholder="请输入昵称" value="{{nickname}}" data-f="nickname" bindinput="bind" />
+  </view>
+  <view class="field">
+    <text class="label">邮箱</text>
+    <input class="input" placeholder="请输入邮箱" value="{{email}}" data-f="email" bindinput="bind" />
+  </view>
+  <view class="field">
+    <text class="label">密码</text>
+    <input class="input" placeholder="请输入密码" password="{{true}}" value="{{password}}" data-f="password" bindinput="bind" />
+  </view>
+  <view class="btn" bindtap="submit" wx:if="{{!loading}}">{{mode==='login' ? '登录' : '注册并登录'}}</view>
+  <view class="btn" wx:else style="opacity:.6">处理中…</view>
+</view>
+
+<view class="card tiny muted">登录后可在多端同步关注的品种与价格异动提醒。</view>

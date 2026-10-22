@@ -1,0 +1,22 @@
+<wxs src="../../utils/util.wxs" module="u" />
+
+<view class="brand-bar">
+  <view class="title">我的关注</view>
+</view>
+
+<view class="card">
+  <view wx:if="{{loading}}" class="empty">加载中…</view>
+  <view wx:elif="{{items.length===0}}" class="empty">
+    <view>还没有关注任何品种</view>
+    <view class="tiny">在「行情」或「品种详情」页点击「加入关注」</view>
+  </view>
+  <view wx:else>
+    <view class="li" wx:for="{{items}}" wx:key="species">
+      <view bindtap="goSpecies" data-name="{{item.species}}">
+        <text class="name">{{item.species}}</text>
+        <text class="tag" wx:if="{{item.province}}">{{item.province}}</text>
+      </view>
+      <text class="rm" bindtap="remove" data-name="{{item.species}}" data-id="{{item.id}}">移除</text>
+    </view>
+  </view>
+</view>

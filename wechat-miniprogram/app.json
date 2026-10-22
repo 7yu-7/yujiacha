@@ -1,0 +1,33 @@
+{
+  "pages": [
+    "pages/market/market",
+    "pages/report/report",
+    "pages/search/search",
+    "pages/me/me",
+    "pages/species/species",
+    "pages/watch/watch",
+    "pages/login/login"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#005F73",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "鱼价查",
+    "backgroundColor": "#eef1f3",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#005F73",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/market/market", "text": "行情" },
+      { "pagePath": "pages/report/report", "text": "日报" },
+      { "pagePath": "pages/search/search", "text": "搜索" },
+      { "pagePath": "pages/me/me", "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

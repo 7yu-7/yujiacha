@@ -1,0 +1,89 @@
+/* 鱼价查 · 全局样式（微信小程序 WXSS） */
+page {
+  background: #eef1f3;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Helvetica, sans-serif;
+  color: #1f2329;
+  font-size: 28rpx;
+}
+
+/* 卡片 */
+.card {
+  background: #ffffff;
+  border-radius: 18rpx;
+  padding: 24rpx;
+  margin: 16rpx 20rpx;
+  box-shadow: 0 3rpx 14rpx rgba(0, 95, 115, 0.06);
+}
+
+/* 行情涨跌色：红涨绿跌（A 股/中国惯例） */
+.up { color: #e8503a; }
+.down { color: #1aad19; }
+.flat { color: #9aa0a6; }
+
+/* 价格档位标签 */
+.tier {
+  display: inline-block;
+  font-size: 20rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 20rpx;
+  color: #fff;
+  background: #9aa0a6;
+}
+
+/* 通用文字 */
+.muted { color: #9aa0a6; }
+.bold { font-weight: 600; }
+.center { text-align: center; }
+.small { font-size: 24rpx; }
+.tiny { font-size: 20rpx; }
+.row { display: flex; align-items: center; }
+.between { justify-content: space-between; }
+.price-big { font-size: 40rpx; font-weight: 700; }
+.sub { color: #6b7280; }
+
+/* 按钮 */
+.btn {
+  background: #005F73;
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+  padding: 16rpx 0;
+  text-align: center;
+}
+.btn.ghost {
+  background: #fff;
+  color: #005F73;
+  border: 2rpx solid #005F73;
+}
+.btn[disabled] { opacity: 0.5; }
+
+/* 顶部品牌条 */
+.brand-bar {
+  background: linear-gradient(135deg, #005F73, #0a7d92);
+  color: #fff;
+  padding: 28rpx 24rpx 22rpx;
+}
+.brand-bar .title { font-size: 38rpx; font-weight: 700; }
+.brand-bar .date { font-size: 24rpx; opacity: 0.85; margin-top: 6rpx; }
+
+/* 分类筛选 chips */
+.chips { display: flex; flex-wrap: wrap; padding: 12rpx 16rpx 0; }
+.chip {
+  font-size: 24rpx;
+  padding: 8rpx 22rpx;
+  border-radius: 30rpx;
+  background: #fff;
+  color: #444;
+  margin: 0 12rpx 12rpx 0;
+  border: 2rpx solid #e3e7ea;
+}
+.chip.on { background: #005F73; color: #fff; border-color: #005F73; }
+
+/* 列表行 */
+.li { display: flex; align-items: center; justify-content: space-between; padding: 22rpx 4rpx; border-bottom: 2rpx solid #f0f2f4; }
+.li:last-child { border-bottom: none; }
+.li .name { font-size: 30rpx; font-weight: 600; }
+.li .tag { font-size: 20rpx; color: #6b7280; background: #f1f3f5; border-radius: 8rpx; padding: 2rpx 10rpx; margin-left: 10rpx; }
+
+/* 空态 */
+.empty { text-align: center; color: #9aa0a6; padding: 80rpx 0; font-size: 26rpx; }

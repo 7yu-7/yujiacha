@@ -1,0 +1,17 @@
+.mover-scroll {
+  white-space: nowrap;
+  margin-top: 16rpx;
+}
+.mover {
+  display: inline-block;
+  min-width: 150rpx;
+  padding: 14rpx 22rpx;
+  margin-right: 16rpx;
+  border-radius: 14rpx;
+  background: #f6f8f9;
+  text-align: center;
+}
+.mover-name { display: block; font-size: 28rpx; font-weight: 600; }
+.mover-pct { display: block; font-size: 24rpx; margin-top: 4rpx; }
+.mover.up { background: #fdecea; }
+.mover.down { background: #eafaf0; }

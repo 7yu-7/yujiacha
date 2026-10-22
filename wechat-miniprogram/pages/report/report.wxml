@@ -1,0 +1,39 @@
+<wxs src="../../utils/util.wxs" module="u" />
+
+<view class="brand-bar">
+  <view class="title">全国渔价日报表</view>
+  <view class="date">{{date}} · 省级综合均价</view>
+</view>
+
+<view class="card" wx:if="{{overview}}">
+  <view class="row between">
+    <view>
+      <text class="muted small">全国均价</text>
+      <view><text class="price-big">¥{{u.fmtPrice(overview.nationalAvg)}}</text><text class="tiny muted"> 元/公斤</text></view>
+    </view>
+  </view>
+  <view class="row" style="margin-top:18rpx">
+    <text class="up">涨 {{overview.upCount}}</text>
+    <text class="down" style="margin-left:36rpx">跌 {{overview.downCount}}</text>
+    <text class="muted" style="margin-left:36rpx">平 {{overview.flatCount}}</text>
+  </view>
+</view>
+
+<view class="card">
+  <view class="row between" style="padding:10rpx 4rpx 16rpx;border-bottom:2rpx solid #eef1f3">
+    <text class="bold">省份</text>
+    <text class="bold">均价</text>
+    <text class="bold">涨跌</text>
+  </view>
+  <view class="li" wx:for="{{rows}}" wx:key="code">
+    <view class="row">
+      <text class="name">{{item.short}}</text>
+      <text class="tag">{{item.speciesCount}}种</text>
+    </view>
+    <text class="price-big">¥{{u.fmtPrice(item.avgPrice)}}</text>
+    <text class="{{u.clsPct(item.changePct)}}" style="font-weight:600;min-width:120rpx;text-align:right">{{u.fmtPct(item.changePct)}}</text>
+  </view>
+</view>
+
+<view class="card tiny muted" wx:if="{{disclaimer}}">{{disclaimer}}</view>
+<view class="card tiny muted">数据来源：农业农村部全国农产品价格信息系统（pfsc.agri.cn）</view>

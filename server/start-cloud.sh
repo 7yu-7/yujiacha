@@ -19,6 +19,7 @@ export PORT="${PORT:-8787}"
 mkdir -p data
 
 cd server
+DB_FILE="../data/fish_price.db"
 echo "════════════════════════════════════════════════════════════"
 echo " 鱼价查 · 云端启动引导"
 echo " driver=${DB_DRIVER}  host=${HOST}  port=${PORT}  seedDays=${SEED_DAYS:-90}"
@@ -27,8 +28,13 @@ echo "════════════════════════�
 echo "[1/3] 初始化数据库表结构 …"
 node scripts/init-db.js
 
-echo "[2/3] 生成演示数据（--days ${SEED_DAYS:-90}）…"
-node scripts/seed.js --days "${SEED_DAYS:-90}"
+# 数据库已存在且未强制重种时，跳过播种（秒级启动，便于本地/容器重启）
+if [ -f "$DB_FILE" ] && [ "${SEED_FORCE:-0}" != "1" ]; then
+  echo "[2/3] 检测到已有数据库，跳过演示数据生成（如需重种请设 SEED_FORCE=1）"
+else
+  echo "[2/3] 生成演示数据（--days ${SEED_DAYS:-90}）…"
+  node scripts/seed.js --days "${SEED_DAYS:-90}"
+fi
 
 echo "[3/3] 启动服务 …"
 exec node src/server.js

@@ -1,0 +1,45 @@
+<wxs src="../../utils/util.wxs" module="u" />
+
+<view class="brand-bar">
+  <view class="title">鱼价查 · 行情</view>
+  <view class="date">{{date}} 全国水产品批发均价（元/公斤）</view>
+</view>
+
+<view class="card" wx:if="{{movers}}">
+  <view class="row between">
+    <text class="bold">今日涨跌榜</text>
+    <text class="tiny muted" bindtap="goReport">查看日报 ›</text>
+  </view>
+  <scroll-view scroll-x="true" class="mover-scroll">
+    <view class="mover up" wx:for="{{movers.topGainers}}" wx:key="name" bindtap="goSpecies" data-name="{{item.name}}">
+      <text class="mover-name">{{item.short}}</text>
+      <text class="mover-pct">{{u.fmtPct(item.changePct)}}</text>
+    </view>
+    <view class="mover down" wx:for="{{movers.topLosers}}" wx:key="name" bindtap="goSpecies" data-name="{{item.name}}">
+      <text class="mover-name">{{item.short}}</text>
+      <text class="mover-pct">{{u.fmtPct(item.changePct)}}</text>
+    </view>
+  </scroll-view>
+</view>
+
+<view class="chips">
+  <view class="chip {{activeCat===''?'on':''}}" data-cat="" bindtap="pickCat">全部</view>
+  <view class="chip {{activeCat===c?'on':''}}" wx:for="{{cats}}" wx:key="*this" data-cat="{{c}}" bindtap="pickCat">{{c}}</view>
+</view>
+
+<view class="card">
+  <view wx:if="{{loading}}" class="empty">加载中…</view>
+  <view wx:elif="{{items.length===0}}" class="empty">暂无数据</view>
+  <view wx:else>
+    <view class="li" wx:for="{{items}}" wx:key="species" bindtap="goSpecies" data-name="{{item.species}}">
+      <view>
+        <text class="name">{{item.species}}</text>
+        <text class="tag">{{item.category}}</text>
+      </view>
+      <view class="row">
+        <text class="price-big">¥{{u.fmtPrice(item.price)}}</text>
+        <text class="{{u.clsPct(item.changePct)}}" style="margin-left:14rpx;font-weight:600">{{u.fmtPct(item.changePct)}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,17 @@
+.hist {
+  padding: 16rpx 4rpx;
+  border-bottom: 2rpx solid #f0f2f4;
+}
+.hist:last-child { border-bottom: none; }
+.bar {
+  margin-top: 8rpx;
+  height: 14rpx;
+  background: #eef1f3;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+.bar-in {
+  height: 100%;
+  background: linear-gradient(90deg, #0a7d92, #005F73);
+  border-radius: 8rpx;
+}

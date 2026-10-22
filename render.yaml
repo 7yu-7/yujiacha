@@ -1,0 +1,44 @@
+# 鱼价查 · Render 云端部署蓝图
+# 说明：
+#  - 后端使用 Node 22 内置的 node:sqlite（零依赖、无需编译原生模块）
+#  - 演示数据在「构建阶段」一次性生成（约 30 秒），运行时直接读取，启动极快
+#  - 运行时若检测到数据库缺失会自动补种，保证自愈
+# 文档：docs/DEPLOY_RENDER.md
+
+services:
+  - type: web
+    name: yujiacha
+    runtime: node
+    plan: free                # 免费档；如需常驻可改为 starter
+    region: oregon            # 离中国大陆最近可选 singapore / frankfurt
+    branch: master            # 部署自 GitHub 仓库的该分支
+    autoDeploy: true          # 推送到 master 自动重新部署
+
+    # 构建：安装依赖 → 建表 → 生成 90 天演示数据（数据文件随镜像保留到运行时）
+    buildCommand: >-
+      cd server && npm install
+      && mkdir -p ../data
+      && node scripts/init-db.js
+      && node scripts/seed.js --days 90
+
+    # 启动：确保表存在；若数据库已存在则跳过播种（秒级启动），否则补种后启动
+    startCommand: >-
+      cd server && node scripts/init-db.js
+      && ([ -f ../data/fish_price.db ] || node scripts/seed.js --days 90)
+      && node src/server.js
+
+    healthCheckPath: /api/health
+
+    envVars:
+      - key: DB_DRIVER
+        value: sqlite
+      - key: HOST
+        value: 0.0.0.0        # 必须对外监听
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22.x           # 锁定 Node 22（node:sqlite 需 22.5+）
+      - key: SEED_DAYS
+        value: "90"           # 演示数据历史天数；改小可加快构建（如 30）
+      # 注意：PORT 由 Render 自动注入，请勿在此写死
+      # JWT_SECRET / CORS_ORIGINS 等可选，缺省已有安全兜底值
