@@ -1,0 +1,25 @@
+# 构建上下文排除（仅保留 server/ 下被 COPY 的目录与文件）
+.git
+.gitignore
+node_modules
+**/node_modules
+data
+server/data
+wechat-miniprogram
+client
+admin
+web
+demo
+docs
+docker
+shared
+.env
+.env.example
+*.log
+# 保留根目录 Dockerfile / .dockerignore 与 server 代码
+!Dockerfile
+!.dockerignore
+!server/package*.json
+!server/src
+!server/sql
+!server/scripts
