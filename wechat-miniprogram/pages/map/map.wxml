@@ -1,0 +1,148 @@
+<wxs src="../../utils/util.wxs" module="u" />
+
+<view wx:if="{{loading}}" class="empty">加载中…</view>
+<block wx:elif="{{d}}">
+
+  <!-- 概览 2×2 -->
+  <view class="ov-grid">
+    <view class="ov">
+      <text class="k">全国综合均价</text>
+      <view><text class="v">{{u.fmtPrice(d.nationalAvg)}}</text><text class="u">元/公斤</text></view>
+      <text class="x">{{u.fmtDate(d.date)}}</text>
+    </view>
+    <view class="ov">
+      <text class="k">上涨省份</text>
+      <view><text class="v up">{{d.upCount || 0}}</text><text class="u">个</text></view>
+      <text class="x">▲ 价格上行</text>
+    </view>
+    <view class="ov">
+      <text class="k">下跌省份</text>
+      <view><text class="v down">{{d.downCount || 0}}</text><text class="u">个</text></view>
+      <text class="x">▼ 价格下行</text>
+    </view>
+    <view class="ov">
+      <text class="k">最高均价</text>
+      <view><text class="v">{{maxShort}}</text></view>
+      <text class="x">{{maxPriceTxt}}</text>
+    </view>
+  </view>
+
+  <!-- 省份快速切换 -->
+  <view class="sec">
+    <view class="row between" style="margin-bottom:14rpx">
+      <text class="bold">省份快速切换</text>
+      <text class="tiny muted">共 {{d.provinces.length}} 个</text>
+    </view>
+    <scroll-view scroll-x="true" class="chips-scroll">
+      <view class="pchip {{selected===p.name?'on':''}}" wx:for="{{d.provinces}}" wx:key="name"
+            data-name="{{p.name}}" bindtap="pick">{{p.short}}</view>
+    </scroll-view>
+  </view>
+
+  <!-- 价格档位分布 -->
+  <view class="card">
+    <view class="row between" style="margin-bottom:10rpx">
+      <text class="bold">价格档位分布</text>
+      <text class="tiny muted">颜色越深价格越高</text>
+    </view>
+    <view class="tier-row" wx:for="{{tierRows}}" wx:key="tier">
+      <view class="sw" style="background:{{item.color}}"></view>
+      <text class="grow">{{item.label}} {{item.range}}</text>
+      <text class="bold">{{item.count}}</text>
+    </view>
+    <view class="notice">ℹ 档位以「元/斤」划分。内陆及高原因冷链与中转成本系统性偏高。</view>
+  </view>
+
+  <!-- 省份排行 -->
+  <view class="card">
+    <view class="row between" style="margin-bottom:14rpx">
+      <text class="bold">省份价格排行</text>
+      <text class="tiny muted">由高到低 · 前15</text>
+    </view>
+    <view class="rank-row" wx:for="{{ranking}}" wx:key="rank" data-name="{{item.name}}" bindtap="pick">
+      <text class="rk t{{item.rank}}">{{item.rank}}</text>
+      <text class="grow bold">{{item.short}}</text>
+      <text class="price-num">{{u.fmtPrice(item.avgPrice)}}</text>
+      <text class="{{u.clsPct(item.changePct)}}" style="width:130rpx;text-align:right;font-size:24rpx">{{u.fmtPct(item.changePct)}}</text>
+    </view>
+  </view>
+
+  <!-- 选中省份详情 -->
+  <block wx:if="{{detail}}">
+    <view class="card">
+      <view class="row between">
+        <view class="row">
+          <text style="font-size:34rpx;font-weight:700">{{detail.province.name}}</text>
+          <text class="tier" style="background:{{detail.header.tier.color}};margin-left:12rpx">{{detail.header.tier.label}}</text>
+        </view>
+        <text class="tiny muted">{{detail.province.coast ? '沿海主产区' : '内陆'}}</text>
+      </view>
+      <view class="tiny muted" style="margin-top:8rpx">
+        覆盖 {{detail.header.speciesCount}} 个品种 · {{detail.header.marketCount}} 家市场 · {{detail.header.recordCount}} 条记录
+      </view>
+      <view class="row" style="align-items:baseline;margin-top:18rpx">
+        <text class="price-big">{{u.fmtPrice(detail.header.avgPrice)}}</text>
+        <text class="tiny muted" style="margin-left:8rpx">元/公斤</text>
+        <text class="{{u.clsPct(detail.header.changePct)}}" style="margin-left:16rpx;font-weight:600">{{u.fmtPct(detail.header.changePct)}}</text>
+      </view>
+      <text class="tiny muted">约 {{u.fmtPrice(detail.header.avgPrice / 2)}} 元/斤 · 较前日</text>
+    </view>
+
+    <!-- 近7日统计 -->
+    <view class="stat-grid">
+      <view class="stat">
+        <text class="k">近7日最高</text>
+        <text class="v">{{u.fmtPrice(detail.stats.max)}}</text>
+        <text class="x">{{u.fmtDate(detail.stats.maxDate)}}</text>
+      </view>
+      <view class="stat">
+        <text class="k">近7日最低</text>
+        <text class="v">{{u.fmtPrice(detail.stats.min)}}</text>
+        <text class="x">{{u.fmtDate(detail.stats.minDate)}}</text>
+      </view>
+      <view class="stat">
+        <text class="k">7日振幅</text>
+        <text class="v">{{u.fmtPrice(detail.stats.amplitude)}}%</text>
+        <text class="x">波动幅度</text>
+      </view>
+    </view>
+
+    <!-- 趋势条形 -->
+    <view class="card">
+      <text class="bold">近一周均价趋势</text>
+      <view class="trend" wx:for="{{detail.trend}}" wx:key="date">
+        <view class="row between tiny">
+          <text class="muted">{{u.fmtDate(item.date)}}</text>
+          <text>¥{{u.fmtPrice(item.price)}}</text>
+        </view>
+        <view class="bar"><view class="bar-in" style="width:{{ ((item.price - trendMin) / ((trendMax - trendMin) || 1) * 100) }}%"></view></view>
+      </view>
+    </view>
+
+    <!-- Top8 品种 -->
+    <view class="card">
+      <view class="row between" style="margin-bottom:10rpx">
+        <text class="bold">Top 8 品种报价</text>
+        <text class="tiny muted">按价格降序</text>
+      </view>
+      <view class="li" wx:for="{{detail.topSpecies}}" wx:key="species" data-name="{{item.species}}" bindtap="goSpecies">
+        <view>
+          <text class="name">{{item.species}}</text>
+          <text class="tag">{{item.category}}{{item.spec ? ' · ' + item.spec : ''}}</text>
+        </view>
+        <view class="row">
+          <text class="price-big" style="font-size:32rpx">{{u.fmtPrice(item.price)}}</text>
+          <text class="{{u.clsPct(item.changePct)}}" style="margin-left:14rpx;font-size:24rpx;font-weight:600">{{u.fmtPct(item.changePct)}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view style="padding:10rpx 20rpx 50rpx">
+      <view class="btn" bindtap="subscribe">订阅「{{selected}}」价格异动</view>
+    </view>
+  </block>
+  <view wx:elif="{{selected}}" class="card empty">
+    {{selected}} 暂无当日数据（可能休市或采集中断）
+  </view>
+
+</block>

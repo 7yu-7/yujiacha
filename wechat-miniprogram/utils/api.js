@@ -6,7 +6,9 @@ function base() {
   return (app && app.globalData && app.globalData.baseUrl) || 'https://yujiacha.app.workbuddy.host';
 }
 function share() {
-  return (app && app.globalData && app.globalData.sharecode) || '274LOJXASW';
+  // sharecode 仅 WorkBuddy 托管网关需要；部署到独立域名后为空字符串
+  const s = app && app.globalData && app.globalData.sharecode;
+  return (s === undefined || s === null) ? '' : s;
 }
 
 // 给路径附加 sharecode（WorkBuddy 托管网关要求）
@@ -82,6 +84,8 @@ const api = {
   movers: (o) => request('/api/movers?' + qs(o), { auth: false }),
   search: (kw, limit) => request('/api/search?' + qs({ q: kw, limit: limit || 30 }), { auth: false }),
   speciesDetail: (name, o) => request('/api/species/' + encodeURIComponent(name) + '?' + qs(o), { auth: false }),
+  mapProvinces: (o) => request('/api/map/provinces?' + qs(o), { auth: false }),
+  province: (name, o) => request('/api/provinces/' + encodeURIComponent(name) + '?' + qs(o), { auth: false }),
   login: (b) => request('/api/auth/login', { method: 'POST', data: b, auth: false }),
   register: (b) => request('/api/auth/register', { method: 'POST', data: b, auth: false }),
   me: () => request('/api/auth/me'),

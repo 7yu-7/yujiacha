@@ -3,6 +3,10 @@
 <view class="brand-bar">
   <view class="title">鱼价查 · 行情</view>
   <view class="date">{{date}} 全国水产品批发均价（元/公斤）</view>
+  <view class="hero-search" bindtap="goSearch">
+    <text class="ico">🔍</text>
+    <text class="ph">搜索品种：中文名 / 拼音首字母 / 别名</text>
+  </view>
 </view>
 
 <view class="card" wx:if="{{movers}}">

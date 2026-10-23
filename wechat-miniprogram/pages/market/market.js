@@ -60,6 +60,10 @@ Page({
     wx.navigateTo({ url: '/pages/species/species?name=' + encodeURIComponent(name) });
   },
 
+  goSearch() {
+    wx.navigateTo({ url: '/pages/search/search' });
+  },
+
   goReport() {
     wx.switchTab({ url: '/pages/report/report' });
   }

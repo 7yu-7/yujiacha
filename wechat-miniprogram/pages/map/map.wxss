@@ -1,0 +1,112 @@
+/* 地图页样式 */
+.ov-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 16rpx 20rpx 0;
+  border-radius: 18rpx;
+  overflow: hidden;
+  box-shadow: 0 3rpx 14rpx rgba(0, 95, 115, 0.06);
+}
+.ov {
+  width: 50%;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 20rpx 22rpx;
+  border-bottom: 2rpx solid #f0f2f4;
+}
+.ov:nth-child(1), .ov:nth-child(2) { border-bottom: none; }
+.ov:nth-child(odd) { border-right: 2rpx solid #f0f2f4; }
+.ov .k { font-size: 21rpx; color: #6b7280; }
+.ov .v { font-size: 38rpx; font-weight: 700; margin-right: 6rpx; }
+.ov .u { font-size: 19rpx; color: #9aa0a6; }
+.ov .x { display: block; font-size: 19rpx; color: #9aa0a6; margin-top: 2rpx; }
+
+.sec { padding: 24rpx 24rpx 0; }
+
+.chips-scroll { white-space: nowrap; width: 100%; }
+.pchip {
+  display: inline-block;
+  font-size: 24rpx;
+  padding: 10rpx 24rpx;
+  border-radius: 30rpx;
+  background: #fff;
+  color: #444;
+  border: 2rpx solid #e3e7ea;
+  margin-right: 14rpx;
+}
+.pchip.on { background: #005F73; color: #fff; border-color: #005F73; }
+
+.tier-row {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+  border-bottom: 2rpx solid #f0f2f4;
+}
+.tier-row:last-of-type { border-bottom: none; }
+.tier-row .sw { width: 24rpx; height: 24rpx; border-radius: 6rpx; margin-right: 16rpx; flex-shrink: 0; }
+.tier-row .grow { flex: 1; font-size: 26rpx; }
+
+.notice {
+  font-size: 20rpx;
+  color: #8a6d3b;
+  background: #fdf6e3;
+  border-radius: 10rpx;
+  padding: 12rpx 16rpx;
+  margin-top: 14rpx;
+  line-height: 1.5;
+}
+
+.rank-row {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 16rpx;
+  border-radius: 12rpx;
+  background: #f7f9fa;
+  margin-bottom: 10rpx;
+}
+.rank-row:last-child { margin-bottom: 0; }
+.rank-row .grow { flex: 1; margin-left: 14rpx; }
+.rank-row .price-num { font-size: 27rpx; font-weight: 700; margin-right: 8rpx; }
+.rk {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 8rpx;
+  background: #eceff1;
+  color: #6b7280;
+  font-size: 20rpx;
+  font-weight: 700;
+  text-align: center;
+  line-height: 36rpx;
+  flex-shrink: 0;
+}
+.rk.t1 { background: #e8503a; color: #fff; }
+.rk.t2 { background: #e88b2f; color: #fff; }
+.rk.t3 { background: #c9a227; color: #fff; }
+
+.stat-grid {
+  display: flex;
+  margin: 0 20rpx 16rpx;
+  border-radius: 18rpx;
+  overflow: hidden;
+  box-shadow: 0 3rpx 14rpx rgba(0, 95, 115, 0.06);
+}
+.stat { flex: 1; background: #fff; padding: 18rpx 8rpx; text-align: center; }
+.stat + .stat { border-left: 2rpx solid #f0f2f4; }
+.stat .k { display: block; font-size: 20rpx; color: #6b7280; }
+.stat .v { display: block; font-size: 30rpx; font-weight: 700; margin: 4rpx 0 2rpx; }
+.stat .x { display: block; font-size: 19rpx; color: #9aa0a6; }
+
+/* 趋势条形（与品种详情页一致） */
+.trend { margin-top: 14rpx; }
+.bar {
+  height: 12rpx;
+  background: #eef1f3;
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin: 6rpx 0 14rpx;
+}
+.bar-in {
+  height: 100%;
+  border-radius: 6rpx;
+  background: linear-gradient(90deg, #0A9396, #005F73);
+}

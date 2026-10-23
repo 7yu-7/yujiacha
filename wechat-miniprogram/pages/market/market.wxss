@@ -15,3 +15,16 @@
 .mover-pct { display: block; font-size: 24rpx; margin-top: 4rpx; }
 .mover.up { background: #fdecea; }
 .mover.down { background: #eafaf0; }
+
+/* 顶部搜索入口（对齐网页版 hero-search） */
+.hero-search {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 36rpx;
+  padding: 14rpx 24rpx;
+  margin-top: 18rpx;
+}
+.hero-search .ico { font-size: 26rpx; }
+.hero-search .ph { font-size: 24rpx; color: rgba(255, 255, 255, 0.8); }

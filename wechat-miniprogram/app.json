@@ -1,11 +1,12 @@
 {
   "pages": [
     "pages/market/market",
-    "pages/report/report",
-    "pages/search/search",
-    "pages/me/me",
-    "pages/species/species",
+    "pages/map/map",
     "pages/watch/watch",
+    "pages/report/report",
+    "pages/me/me",
+    "pages/search/search",
+    "pages/species/species",
     "pages/login/login"
   ],
   "window": {
@@ -16,15 +17,16 @@
     "backgroundTextStyle": "light"
   },
   "tabBar": {
-    "color": "#8a8a8a",
-    "selectedColor": "#005F73",
+    "color": "#8595AC",
+    "selectedColor": "#0A9396",
     "backgroundColor": "#ffffff",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "list": [
-      { "pagePath": "pages/market/market", "text": "行情" },
-      { "pagePath": "pages/report/report", "text": "日报" },
-      { "pagePath": "pages/search/search", "text": "搜索" },
-      { "pagePath": "pages/me/me", "text": "我的" }
+      { "pagePath": "pages/market/market", "text": "行情", "iconPath": "static/tab/market.png", "selectedIconPath": "static/tab/market-on.png" },
+      { "pagePath": "pages/map/map", "text": "地图", "iconPath": "static/tab/map.png", "selectedIconPath": "static/tab/map-on.png" },
+      { "pagePath": "pages/watch/watch", "text": "关注", "iconPath": "static/tab/watch.png", "selectedIconPath": "static/tab/watch-on.png" },
+      { "pagePath": "pages/report/report", "text": "日报", "iconPath": "static/tab/report.png", "selectedIconPath": "static/tab/report-on.png" },
+      { "pagePath": "pages/me/me", "text": "我的", "iconPath": "static/tab/me.png", "selectedIconPath": "static/tab/me-on.png" }
     ]
   },
   "style": "v2",
