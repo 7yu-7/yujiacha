@@ -3,6 +3,21 @@
 <view wx:if="{{loading}}" class="empty">加载中…</view>
 <block wx:elif="{{d}}">
 
+  <!-- 中国地图（Canvas 2D 复刻网页版内联 SVG，按档位着色、可点选省份） -->
+  <view class="card map-card">
+    <view class="row between">
+      <text class="bold">全国省级价格分布图</text>
+      <text class="tiny muted">点击省份看详情</text>
+    </view>
+    <canvas type="2d" id="chinamap" class="china-map" style="height:{{mapH}}px" bindtap="onMapTap"></canvas>
+    <view class="legend">
+      <view class="lg"><view class="sw" style="background:#6FA8DC"></view>低位 ≤26</view>
+      <view class="lg"><view class="sw" style="background:#F4C361"></view>中位 26–36</view>
+      <view class="lg"><view class="sw" style="background:#E98B7B"></view>高位 &gt;36</view>
+      <view class="lg"><view class="sw" style="background:#D9DEE3"></view>暂无数据</view>
+    </view>
+  </view>
+
   <!-- 概览 2×2 -->
   <view class="ov-grid">
     <view class="ov">
