@@ -1,6 +1,11 @@
 <wxs src="../../utils/util.wxs" module="u" />
 
 <view wx:if="{{loading}}" class="empty">加载中…</view>
+<view wx:elif="{{error}}" class="card empty">
+  <view>地图数据加载失败</view>
+  <view class="tiny muted" style="margin:10rpx 0 20rpx">请检查网络后重试</view>
+  <view class="btn" style="margin:0 60rpx" bindtap="retry">重新加载</view>
+</view>
 <block wx:elif="{{d}}">
 
   <!-- 中国地图（Canvas 2D 复刻网页版内联 SVG，按档位着色、可点选省份） -->

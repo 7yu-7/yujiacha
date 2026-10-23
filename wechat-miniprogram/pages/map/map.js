@@ -1,5 +1,5 @@
 const { api } = require('../../utils/api.js');
-const chinaMap = require('../../utils/chinaMap.json');
+const chinaMap = require('../../utils/chinaMap.js');
 
 const TIER_COLOR = { low: '#6FA8DC', mid: '#F4C361', high: '#E98B7B' };
 const NA_COLOR = '#D9DEE3';
@@ -26,6 +26,7 @@ function tracePath(ctx, d) {
 Page({
   data: {
     loading: true,
+    error: false,
     d: null,
     tierRows: [],
     ranking: [],
@@ -92,8 +93,13 @@ Page({
       })
       .catch((e) => {
         wx.showToast({ title: e.message || '地图数据加载失败', icon: 'none' });
-        this.setData({ loading: false });
+        this.setData({ loading: false, error: true });
       });
+  },
+
+  retry() {
+    this.setData({ error: false });
+    this.load();
   },
 
   drawChinaMap() {
