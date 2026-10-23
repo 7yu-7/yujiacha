@@ -1,11 +1,12 @@
 // 鱼价查 · 微信小程序 App 入口
 App({
   globalData: {
-    // 后端 API 基地址（公网 HTTPS，需在微信公众平台配置 request 合法域名）
-    // 当前为 WorkBuddy 托管实例，带 sharecode 网关；若后续部署到独立域名（如 Render），
-    // 只需把 baseUrl 改成新地址、并把 sharecode 留空即可，无需改动任何页面代码。
-    baseUrl: 'https://yujiacha.app.workbuddy.host',
-    sharecode: '274LOJXASW',
+    // 后端 API 基地址
+    // 【开发调试】当前指向本机局域网地址（手机预览需与电脑同一 WiFi，且开发者工具勾选
+    // 「详情 → 本地设置 → 不校验合法域名」）：'http://192.168.10.30:8787'
+    // 【正式发布】改回公网 HTTPS 地址（Render / Hugging Face 部署后），并把 sharecode 留空。
+    baseUrl: 'http://192.168.10.30:8787',
+    sharecode: '',
     user: null
   },
   onLaunch() {
